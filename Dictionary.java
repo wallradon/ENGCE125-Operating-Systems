@@ -17,7 +17,7 @@ public class Gui extends javax.swing.JFrame {
         Thread t1 = new Thread(() -> {
             String lastText = "";
             while (true) {
-                String text = EText.getText();
+                String text = EText.getText().trim();
                 if (!text.equals(lastText) && !text.isEmpty()) {
                     System.out.println(text);
                     words = text;
@@ -169,20 +169,25 @@ public class Gui extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void NewTextActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        String addText = NewText.getText();
+        String addText = NewText.getText().trim();
+        if (addText.isEmpty()) {
+            System.err.println("Unable to save the space.");
+            NewText.setText("");
+            return;
+        }
         String addresult = salg.Search(list, addText);
-        if (!addresult.equalsIgnoreCase(addText)) {
+        if (addresult.isEmpty()) {
             list.add(addText);
             System.out.println("New word added: " + addText);
-        }else{
+        } else {
             System.err.println("This word already exists.");
         }
+
         NewText.setText("");
     }                                       
 
     private void ETextActionPerformed(java.awt.event.ActionEvent evt) {                                      
-//        String text = EText.getText();
-//        System.out.println("Text = " + text);
+
     }                                     
 
     /**
