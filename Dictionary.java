@@ -9,7 +9,6 @@ public class Gui extends javax.swing.JFrame {
     private SearchALG salg = new SearchALG();
 
     private volatile String words = "";
-    private volatile Boolean chack = false;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Gui.class.getName());
 
     public Gui() {
@@ -19,7 +18,7 @@ public class Gui extends javax.swing.JFrame {
             String lastText = "";
             while (true) {
                 String text = EText.getText();
-                if (!text.equals(lastText)) {
+                if (!text.equals(lastText) && !text.isEmpty()) {
                     System.out.println(text);
                     words = text;
                     lastText = text;
@@ -43,8 +42,7 @@ public class Gui extends javax.swing.JFrame {
 
                     if (!words.isEmpty()) {
 
-                        String[] data = list.toArray(new String[0]);
-                        String result = salg.Search(data, words);
+                        String result = salg.Search(list, words);
 
                         if (!result.isEmpty()) {
                             System.out.println("Match found : " + result);
@@ -63,9 +61,16 @@ public class Gui extends javax.swing.JFrame {
         });
 
         Thread t3 = new Thread(() -> {
+            int temp = 0;
             while (true) {
-                int count = list.size() ;
-                totalWord.setText("The dictionary contains "+count+" words");
+                int count = list.size();
+
+                if (count > temp || count < temp) {
+                    totalWord.setText("The dictionary contains " + count + " words");
+                    System.out.println("Update size dictionary");
+                    System.out.println("Word in Dictionary: " + list);
+                    temp = count;
+                }
 
                 try {
                     Thread.sleep(1000);
@@ -114,7 +119,7 @@ public class Gui extends javax.swing.JFrame {
             }
         });
 
-        totalWord.setText("The dictionary contains ... words.");
+        totalWord.setText("The dictionary contains 0 words.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,7 +156,7 @@ public class Gui extends javax.swing.JFrame {
                     .addComponent(EnText1)
                     .addComponent(NewText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(totalWord)
+                .addComponent(totalWord, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -165,11 +170,14 @@ public class Gui extends javax.swing.JFrame {
 
     private void NewTextActionPerformed(java.awt.event.ActionEvent evt) {                                        
         String addText = NewText.getText();
-        list.add(addText);
+        String addresult = salg.Search(list, addText);
+        if (!addresult.equalsIgnoreCase(addText)) {
+            list.add(addText);
+            System.out.println("New word added: " + addText);
+        }else{
+            System.err.println("This word already exists.");
+        }
         NewText.setText("");
-        System.out.println("New word added: " + addText);
-        System.out.println("Word in Dictionary: " + list);
-
     }                                       
 
     private void ETextActionPerformed(java.awt.event.ActionEvent evt) {                                      
