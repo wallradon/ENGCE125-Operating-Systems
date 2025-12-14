@@ -8,7 +8,6 @@ public class Gui extends javax.swing.JFrame {
 
     private ArrayList<String> list = new ArrayList<>(List.of("Dog", "Cat", "ante"));
     private SearchALG salg = new SearchALG();
-
     private volatile String words = "";
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Gui.class.getName());
 
@@ -54,7 +53,7 @@ public class Gui extends javax.swing.JFrame {
                 }
 
                 try {
-                    Thread.sleep(200);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
@@ -76,7 +75,7 @@ public class Gui extends javax.swing.JFrame {
                 }
 
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
