@@ -1,17 +1,14 @@
 package warehousesystems;
 
 import java.util.LinkedList;
-import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicInteger;
-
 public class WareHouseSystems {
 
     public static void main(String[] args) {
         LinkedList<Integer> wareHouse = new LinkedList<>();
-        AtomicInteger produc = new AtomicInteger(0);
         final int capacity = 5 ;
         //Producer
         Thread t1 = new Thread(() -> {
+            int producVal = 0 ;
             while (true) {
 
 
@@ -24,9 +21,9 @@ public class WareHouseSystems {
                             Thread.currentThread().interrupt();
                         }
                     }
-                    int producVal = produc.incrementAndGet(); //producVal++
+                    producVal++ ;
                     wareHouse.add(producVal);
-                    System.out.println("additem : " + producVal+" Produc have " + wareHouse.size()+" Item");
+                    System.out.println("additem | Produc have " + wareHouse.size()+" Item");
                     wareHouse.notifyAll(); //is not empty wakeUp
                 }
 
@@ -50,8 +47,8 @@ public class WareHouseSystems {
                             Thread.currentThread().interrupt();
                         }
                     }
-                    int Consumeritem = wareHouse.removeFirst();
-                    System.out.println("out of Warehouse: " + Consumeritem + " Produc have " + wareHouse.size()+" Item");
+                    wareHouse.removeFirst();
+                    System.out.println("out of Warehouse Produc have " + wareHouse.size()+" Item");
                     wareHouse.notifyAll(); //say i removed it
                 }
                 try {
