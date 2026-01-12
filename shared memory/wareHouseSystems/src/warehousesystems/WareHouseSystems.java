@@ -58,32 +58,9 @@ public class WareHouseSystems {
                 }
             }
         });
-//        Thread t3 = new Thread(() -> {
-//            while (true) {
-//                synchronized (wareHouse) { //wait produc insert item
-//                    while (wareHouse.isEmpty()) { // if empty wait
-//                        try {
-//                            System.out.println("Consumer 2 : wait produc insert item");
-//                            wareHouse.wait();
-//                        } catch (InterruptedException e) {
-//                            Thread.currentThread().interrupt();
-//                        }
-//                    }
-//                    wareHouse.removeFirst();
-//                    System.out.println("Consumer 2 : out of Warehouse Produc have " + wareHouse.size() + " Item");
-//                    wareHouse.notifyAll(); //say i removed it
-//                }
-//                try {
-//                    Thread.sleep(5000);
-//                } catch (InterruptedException e) {
-//                    Thread.currentThread().interrupt();
-//                }
-//            }
-//        });
 
         t1.start();
         t2.start();
-//        t3.start();
     }
 
 }
