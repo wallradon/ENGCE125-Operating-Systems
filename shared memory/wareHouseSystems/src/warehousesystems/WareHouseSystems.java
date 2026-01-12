@@ -7,15 +7,20 @@ public class WareHouseSystems {
     public static void main(String[] args) {
         LinkedList<Integer> wareHouse = new LinkedList<>();
         final int capacity = 5;
+        int min = 100 ;
+        int max = 1000 ;
+        
         //Producer
         Thread t1 = new Thread(() -> {
+            
             int producVal = 0;
             while (true) {
-
+                int randomNum1 = (int)(Math.random() * (max - min + 1)) + min;
                 synchronized (wareHouse) {
                     while (wareHouse.size() == capacity) {
                         try { //wait consumer item get out 
                             System.out.println("Ware House is Full");
+                            System.out.println("----------------------------------------------------");
                             wareHouse.wait();
                         } catch (InterruptedException e) {
                             Thread.currentThread().interrupt();
@@ -24,35 +29,93 @@ public class WareHouseSystems {
                     producVal++;
                     wareHouse.add(producVal);
                     System.out.println("additem | Produc have " + wareHouse.size() + " Item");
+                    System.out.println("----------------------------------------------------");
                     wareHouse.notifyAll(); //is not empty wakeUp
+                    
                 }
-
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(randomNum1);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
             }
         });
+        
 
 //      Consumer
-        Thread t2 = new Thread(() -> {
+        Thread c1 = new Thread(() -> {
             while (true) {
+                int randomNum2 = (int)(Math.random() * (max - min + 1)) + min;
                 synchronized (wareHouse) { //wait produc insert item
                     while (wareHouse.isEmpty()) { // if empty wait
                         try {
-                            System.out.println("Consumer 1 : wait produc insert item");
+                            System.out.println("    Consumer 1 : wait produc insert item");
+                            System.out.println("----------------------------------------------------");
                             wareHouse.wait();
                         } catch (InterruptedException e) {
                             Thread.currentThread().interrupt();
                         }
                     }
                     wareHouse.removeFirst();
-                    System.out.println("Consumer 1 :  out of Warehouse Produc have " + wareHouse.size() + " Item");
+                    System.out.println("    Consumer 1 :  out of Warehouse Produc have " + wareHouse.size() + " Item");
+                    System.out.println("----------------------------------------------------");
                     wareHouse.notifyAll(); //say i removed it
+//                    System.out.println("time = " + randomNum2);
                 }
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(randomNum2);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        });
+        Thread c2 = new Thread(() -> {
+            while (true) {
+                int randomNum2 = (int)(Math.random() * (max - min + 1)) + min;
+                synchronized (wareHouse) { //wait produc insert item
+                    while (wareHouse.isEmpty()) { // if empty wait
+                        try {
+                            System.out.println("    Consumer 2 : wait produc insert item");
+                            System.out.println("----------------------------------------------------");
+                            wareHouse.wait();
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                        }
+                    }
+                    wareHouse.removeFirst();
+                    System.out.println("    Consumer 2 :  out of Warehouse Produc have " + wareHouse.size() + " Item");
+                    System.out.println("----------------------------------------------------");
+                    wareHouse.notifyAll(); //say i removed it
+//                    System.out.println("time = " + randomNum2);
+                }
+                try {
+                    Thread.sleep(randomNum2);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        });
+        Thread c3 = new Thread(() -> {
+            while (true) {
+                int randomNum2 = (int)(Math.random() * (max - min + 1)) + min;
+                synchronized (wareHouse) { //wait produc insert item
+                    while (wareHouse.isEmpty()) { // if empty wait
+                        try {
+                            System.out.println("    Consumer 3 : wait produc insert item");
+                            System.out.println("----------------------------------------------------");
+                            wareHouse.wait();
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                        }
+                    }
+                    wareHouse.removeFirst();
+                    System.out.println("    Consumer 3 :  out of Warehouse Produc have " + wareHouse.size() + " Item");
+                    System.out.println("----------------------------------------------------");
+                    wareHouse.notifyAll(); //say i removed it
+//                    System.out.println("time = " + randomNum2);
+                }
+                try {
+                    Thread.sleep(randomNum2);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
@@ -60,7 +123,9 @@ public class WareHouseSystems {
         });
 
         t1.start();
-        t2.start();
+        c1.start();
+        c2.start();
+        c3.start();
     }
 
 }
