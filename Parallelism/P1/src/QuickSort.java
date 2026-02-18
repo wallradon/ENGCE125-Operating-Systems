@@ -58,7 +58,7 @@ public class QuickSort {
             A[j] = temp;
         }
     }//end swap
-
+//-----------------------------------------------------------------------------------------------//
     public void merge(int[] arr, int l, int m, int r) {
         // Find the size of the two parts to merge
         int n1 = m - l + 1;
@@ -75,7 +75,6 @@ public class QuickSort {
         for (int j = 0; j < n2; ++j) {
             R[j] = arr[m + 1 + j];
         }
-
         // Merge the temporary array back into the main arr array
         int i = 0, j = 0;
         int k = l;
