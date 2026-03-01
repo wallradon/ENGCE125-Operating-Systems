@@ -1,11 +1,8 @@
 
 public class QuickSort {
 
-    public void Sort() {
-        System.out.println("Hello");
-    }
-
     public int hoarePartition(int[] A, int l, int r) {
+
         int p = A[l]; // Pivot is the first character
         int i = l;
         int j = r + 1;
@@ -30,10 +27,8 @@ public class QuickSort {
         // swap(A[i], A[j]) // undo last swap when i >= j
         // undo the last swap that was exceeded
         swap(A, i, j);
-
         //  swap(A[l], A[j]) // place the Pivot at the correct position (j)
         swap(A, l, j);
-
         return j;
     }//end hoarePartition
 
@@ -59,6 +54,7 @@ public class QuickSort {
         }
     }//end swap
 //-----------------------------------------------------------------------------------------------//
+
     public void merge(int[] arr, int l, int m, int r) {
         // Find the size of the two parts to merge
         int n1 = m - l + 1;
@@ -78,6 +74,7 @@ public class QuickSort {
         // Merge the temporary array back into the main arr array
         int i = 0, j = 0;
         int k = l;
+        
         while (i < n1 && j < n2) {
             if (L[i] <= R[j]) {
                 arr[k] = L[i];
@@ -88,8 +85,7 @@ public class QuickSort {
             }
             k++;
         }
-
-    // Collect any remaining terms (if any)
+        // Collect any remaining terms (if any)
         while (i < n1) {
             arr[k] = L[i];
             i++;
@@ -101,5 +97,4 @@ public class QuickSort {
             k++;
         }
     }//end merge
-
 }//end class
