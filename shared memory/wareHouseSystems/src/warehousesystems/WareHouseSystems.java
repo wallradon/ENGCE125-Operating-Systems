@@ -121,7 +121,6 @@ public class WareHouseSystems {
                 }
             }
         });
-
         t1.start();
         c1.start();
         c2.start();
