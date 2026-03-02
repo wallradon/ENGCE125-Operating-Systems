@@ -41,7 +41,7 @@ public class viewCore {
         // merge data
         int currentSortedEnd = chunkSize - 1;
         for (int i = 1 ; i < cores ; i++) { //1-11
-            // Find the end point of the next chunk to merge
+            // Find the end point of the next chunk to merge Ex
             int nextChunkEnd = (i == cores - 1) ? size - 1 : (i + 1) * chunkSize - 1;
             // Merge: (from the beginning...to the end of the first section) 
             //combined with (first section + 1...to the end of the next section)
@@ -56,7 +56,7 @@ public class viewCore {
         AtomicLong min = new AtomicLong(Long.MIN_VALUE);
         AtomicLong avg = new AtomicLong(0);
         AtomicLong mean = new AtomicLong(0);
-        double[] med = new double[1];
+//        double[] med = new double[1];
 
         int cores = Runtime.getRuntime().availableProcessors();
         ExecutorService executor = Executors.newFixedThreadPool(cores);
@@ -79,9 +79,9 @@ public class viewCore {
             mean.set(taskAvg(data));
         });
 
-        executor.submit(() -> {
-            med[0] = median(data);
-        });
+//        executor.submit(() -> {
+//            med[0] = median(data);
+//        });
 
         executor.shutdown();
         try {

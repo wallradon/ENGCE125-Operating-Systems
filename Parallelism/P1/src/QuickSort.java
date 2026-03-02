@@ -59,7 +59,7 @@ public class QuickSort {
         // Find the size of the two parts to merge
         int n1 = m - l + 1;
         int n2 = r - m;
-
+        
         // Create a temporary array
         int[] L = new int[n1];
         int[] R = new int[n2];
