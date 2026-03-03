@@ -9,7 +9,7 @@ public class Sequential {
         long total = 0;
         long avg;
         double median = 0 ;
-        Arrays.sort(data);
+        
         for (int i = 0; i < data.length; i++) {
             if (data[i] > max) {
                 max = data[i];
@@ -44,7 +44,11 @@ public class Sequential {
         System.out.println("Min = " + min);
         System.out.println("AVG = " + avg);
         System.out.println("mean = " + avg);
-//        System.out.println("median = " + median) ;
+        System.out.println("median = " + median) ;
 
+    }
+    
+    public void sortData(int[] data){
+        Arrays.sort(data);
     }
 }
