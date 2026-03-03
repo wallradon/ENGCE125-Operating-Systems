@@ -1,4 +1,3 @@
-
 public class QuickSort {
 
     public int hoarePartition(int[] A, int l, int r) {
